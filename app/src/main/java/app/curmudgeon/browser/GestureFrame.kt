@@ -35,6 +35,8 @@ class GestureFrame @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     var listener: Listener? = null
+    /** Pixels at the bottom of this frame that belong to the system's home gesture; bottom-edge gestures start above them. */
+    var bottomReserved = 0
     var webView: android.webkit.WebView? = null
 
     private val density = resources.displayMetrics.density
@@ -146,7 +148,8 @@ class GestureFrame @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     private fun regionAt(x: Float, y: Float): Region {
         val w = width.toFloat()
-        val h = height.toFloat()
+        val h = height.toFloat() - bottomReserved
+        if (y > h) return Region.NONE
         return when {
             y > h - cornerPx && x < cornerPx -> Region.BOTTOM_LEFT_CORNER
             y > h - cornerPx && x > w - cornerPx -> Region.BOTTOM_RIGHT_CORNER

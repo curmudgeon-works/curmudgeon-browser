@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package app.curmudgeon.browser
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -30,7 +29,7 @@ class SettingsActivity : AppCompatActivity() {
         prefs = Prefs(this)
         val root = findViewById<android.view.View>(R.id.settingsRoot)
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
-            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             v.updatePadding(top = bars.top, bottom = bars.bottom, left = bars.left, right = bars.right)
             insets
         }
@@ -98,6 +97,7 @@ class SettingsActivity : AppCompatActivity() {
                 var anyVisible = false
                 for (i in 0 until group.preferenceCount) {
                     val p = group.getPreference(i)
+                    p.isIconSpaceReserved = false
                     val visible = if (p is PreferenceGroup) apply(p) else advanced || p.key in SIMPLE_KEYS
                     p.isVisible = visible
                     anyVisible = anyVisible || visible

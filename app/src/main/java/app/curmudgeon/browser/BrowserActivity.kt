@@ -266,6 +266,9 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
             val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
             column.setPadding(bars.left, bars.top, bars.right, maxOf(bars.bottom, ime.bottom))
+            // with gesture navigation the home-swipe zone reaches above the navigation bar
+            val gestures = insets.getInsets(WindowInsetsCompat.Type.mandatorySystemGestures())
+            webFrame.bottomReserved = if (ime.bottom > 0) 0 else (gestures.bottom - bars.bottom).coerceAtLeast(0) + (8 * density).toInt()
             sidebarView.setPadding(bars.left, bars.top, 0, bars.bottom)
             insets
         }
@@ -357,9 +360,15 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
         val wv = t.webView ?: run { t.url = url; return }
         if (url == Prefs.HOME_URL) {
             t.url = Prefs.HOME_URL
+            t.title = ""
             applyPerSite(t, wv, HomePage.BASE_URL)
             wv.loadDataWithBaseURL(HomePage.BASE_URL, HomePage.build(prefs, db), "text/html", "utf-8", HomePage.BASE_URL)
             if (t === tabs.current) updateUrlField()
+            return
+        }
+        if (url.startsWith("javascript:", ignoreCase = true)) {
+            // bookmarklets run on the current page and leave the address alone
+            wv.evaluateJavascript(Uri.decode(url.substring("javascript:".length)), null)
             return
         }
         if (openExternally(url)) return
@@ -1054,6 +1063,8 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
 
         override fun onPageStarted(view: WebView, url: String, favicon: Bitmap?) {
             tab.url = if (url.startsWith(HomePage.BASE_URL)) Prefs.HOME_URL else url
+            if (tab.url == Prefs.HOME_URL) tab.title = ""
+            tabs.tabs.indexOf(tab).takeIf { it >= 0 }?.let { tabBar.updateLabel(it, tab) }
             if (tab === tabs.current) {
                 updateUrlField()
                 if (prefs.topMenuOnLoad) showTopMenu()

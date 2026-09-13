@@ -17,7 +17,7 @@
     <color name="url_bg">#FFFFFFFF</color>
     <color name="url_text">#FF000000</color>
     <color name="page_bg">#FF383838</color>
-    <color name="sidebar_bg">#F2050505</color>
+    <color name="sidebar_bg">#FF0A0A0A</color>
     <color name="sidebar_rail">#FF1C1C1C</color>
     <color name="divider">#FF2A2A2A</color>
     <color name="scrim">#88000000</color>
