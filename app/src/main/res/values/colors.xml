@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Curmudgeon palette -->
+    <color name="bg">#FF191917</color>
+    <color name="surface">#FF262624</color>
+    <color name="text">#FFECE8DF</color>
+    <color name="text_dim">#FFA19C91</color>
+    <color name="accent">#FFE2884F</color>
+    <!-- browser chrome (Naked-style greys) -->
+    <color name="menu_bg">#FF000000</color>
+    <color name="menu_icon">#FFCFCFCF</color>
+    <color name="tab_bg">#FF5E5E5E</color>
+    <color name="tab_bg_alt">#FF6E6E6E</color>
+    <color name="tab_text">#FFF2F2F2</color>
+    <color name="tab_current_bg">#FFFFFFFF</color>
+    <color name="tab_current_text">#FF000000</color>
+    <color name="url_bg">#FFFFFFFF</color>
+    <color name="url_text">#FF000000</color>
+    <color name="page_bg">#FF383838</color>
+    <color name="sidebar_bg">#F2050505</color>
+    <color name="sidebar_rail">#FF1C1C1C</color>
+    <color name="divider">#FF2A2A2A</color>
+    <color name="scrim">#88000000</color>
+</resources>

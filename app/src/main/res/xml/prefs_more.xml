@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditTextPreference android:key="home_html" android:title="Home page HTML" android:defaultValue=""
+        android:summary="Replace the built-in home page with your own HTML. {{search}}, {{bookmarks}} and {{history}} insert those sections. Empty uses the built-in page." />
+    <PreferenceCategory android:key="category_night" android:title="Night mode colours">
+        <EditTextPreference android:key="night_text_color" android:title="Text colour" android:defaultValue="C8C8C8" android:summary="Six-digit RGB colour, like C8C8C8." />
+        <EditTextPreference android:key="night_link_color" android:title="Link colour" android:defaultValue="7FB2F0" />
+        <EditTextPreference android:key="night_visited_link_color" android:title="Visited link colour" android:defaultValue="B89AF0" />
+        <SeekBarPreference android:key="night_image_brightness" android:title="Image brightness (%)" android:defaultValue="75" android:max="100" app:min="10" app:showSeekBarValue="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

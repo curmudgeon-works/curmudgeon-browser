@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="image_policies"><item>on</item><item>only over Wi-Fi</item><item>off</item></string-array>
+    <string-array name="image_policy_values"><item>0</item><item>1</item><item>2</item></string-array>
+
+    <string-array name="url_bar_modes"><item>address keyboard (/ and .com keys)</item><item>auto space and mic</item><item>auto space, mic and keyboard suggestions</item></string-array>
+    <string-array name="url_bar_mode_values"><item>0</item><item>1</item><item>2</item></string-array>
+
+    <string-array name="tab_rows"><item>1</item><item>2</item><item>3</item><item>4</item><item>5</item><item>6</item></string-array>
+    <string-array name="tab_close_methods"><item>tap the current tab</item><item>long press a tab</item><item>swipe a tab up or down</item></string-array>
+    <string-array name="tab_close_method_values"><item>0</item><item>1</item><item>2</item></string-array>
+    <string-array name="tab_cache"><item>2 (slower tab switching)</item><item>3</item><item>4</item><item>5</item><item>6 (default)</item><item>8</item><item>10</item><item>15 (more memory)</item></string-array>
+    <string-array name="tab_cache_values"><item>2</item><item>3</item><item>4</item><item>5</item><item>6</item><item>8</item><item>10</item><item>15</item></string-array>
+    <string-array name="bookmark_open"><item>open in the current tab</item><item>new tab, keep the sidebar open</item><item>open in a new tab</item></string-array>
+    <string-array name="bookmark_open_values"><item>0</item><item>1</item><item>2</item></string-array>
+
+    <string-array name="menu_gestures"><item>none</item><item>swipe once</item><item>swipe twice</item><item>swipe from the screen edge</item><item>once, or from the edge</item></string-array>
+    <string-array name="menu_gesture_values"><item>4</item><item>1</item><item>2</item><item>0</item><item>3</item></string-array>
+    <string-array name="volume_actions"><item>change volume</item><item>scroll the page</item><item>switch tabs</item><item>zoom</item><item>page top or end</item></string-array>
+    <string-array name="volume_action_values"><item>0</item><item>1</item><item>2</item><item>3</item><item>4</item></string-array>
+    <string-array name="link_long_press"><item>show the link menu</item><item>open in a new tab</item><item>open in a new tab and switch to it</item></string-array>
+    <string-array name="link_long_press_values"><item>0</item><item>1</item><item>2</item></string-array>
+
+    <string-array name="security_modes"><item>block</item><item>allow</item><item>ask me</item></string-array>
+    <string-array name="security_mode_values"><item>0</item><item>1</item><item>2</item></string-array>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreferenceCompat android:key="block_ads" android:title="Block ads and trackers" android:defaultValue="false"
+        android:summary="Blocks requests to hosts on a downloaded block list. The list is fetched once when you turn this on, then only when you update it." />
+    <Preference android:key="update_block_list" android:title="Update block list" />
+    <EditTextPreference android:key="block_list_url" android:title="Block list address" android:defaultValue="https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
+        android:summary="A hosts-format file. Default: StevenBlack unified hosts (MIT licence)." />
+    <SwitchPreferenceCompat android:key="do_not_track" android:title="Send Do Not Track and Global Privacy Control" android:defaultValue="true"
+        android:summary="Adds the DNT and Sec-GPC headers to pages you open. Sites may ignore them." />
+    <SwitchPreferenceCompat android:key="safe_browsing" android:title="Safe Browsing" android:defaultValue="true"
+        android:summary="Android's built-in check against known phishing and malware sites, done by the system browser engine." />
+</PreferenceScreen>

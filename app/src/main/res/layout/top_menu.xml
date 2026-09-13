@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Tab & URL menu: wrapping multi-line tab buttons, new-tab button, home / address / go row. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/menu_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <HorizontalScrollView
+            android:id="@+id/tabScroll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fillViewport="false"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/tabStrip"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <ImageButton
+            android:id="@+id/btNewTab"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:minHeight="44dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="New tab (long press: closed tabs)"
+            android:src="@drawable/ic_add" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btHome"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Home page"
+            android:src="@drawable/ic_home" />
+
+        <EditText
+            android:id="@+id/urlField"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/url_bg"
+            android:hint="search or address"
+            android:imeOptions="actionGo|flagNoExtractUi"
+            android:importantForAutofill="no"
+            android:inputType="textUri"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:textColor="@color/url_text"
+            android:textColorHint="#FF888888"
+            android:textCursorDrawable="@null"
+            android:textSize="17sp" />
+
+        <ImageButton
+            android:id="@+id/btGo"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Go, stop or reload (long press: search engine)"
+            android:src="@drawable/ic_go" />
+    </LinearLayout>
+</LinearLayout>

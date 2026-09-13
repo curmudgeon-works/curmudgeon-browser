@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Gesture ListPreferences get their entries (the action list) in code from GestureAction. -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference android:key="volume_action" android:title="Volume buttons" android:defaultValue="0"
+        android:entries="@array/volume_actions" android:entryValues="@array/volume_action_values" android:summary="%s" />
+    <ListPreference android:key="link_long_press" android:title="Link long press" android:defaultValue="0"
+        android:entries="@array/link_long_press" android:entryValues="@array/link_long_press_values" android:summary="%s" />
+    <SwitchPreferenceCompat android:key="long_press_selects_text" android:title="Long press selects text" android:defaultValue="true"
+        android:summary="Turn off if text selection pops up too often; the pull-up menu's select-text button then allows it once." />
+
+    <PreferenceCategory android:key="category_menus" android:title="Menus">
+        <ListPreference android:key="top_menu_gesture" android:title="Tabs and address menu" android:defaultValue="3"
+            android:entries="@array/menu_gestures" android:entryValues="@array/menu_gesture_values"
+            android:summary="%s. Once: swipe down at the top of the page. From the edge: swipe down from the top edge anywhere." />
+        <ListPreference android:key="bottom_menu_gesture" android:title="Pull-up menu" android:defaultValue="0"
+            android:entries="@array/menu_gestures" android:entryValues="@array/menu_gesture_values"
+            android:summary="%s. From the edge: swipe up from the bottom edge. Once: swipe up at the end of the page." />
+        <ListPreference android:key="side_menu_gesture" android:title="Bookmarks sidebar" android:defaultValue="0"
+            android:entries="@array/menu_gestures" android:entryValues="@array/menu_gesture_values"
+            android:summary="%s. From the edge: swipe in from the left edge. Once: swipe right when the page cannot scroll further left." />
+        <SwitchPreferenceCompat android:key="top_menu_on_load" android:title="Show tabs and address while loading" android:defaultValue="true" />
+        <SwitchPreferenceCompat android:key="hide_menus_on_scroll" android:title="Hide menus when scrolling down" android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_double_tap" android:title="Double tap">
+        <SwitchPreferenceCompat android:key="double_tap_zoom" android:title="Zoom in and out" android:defaultValue="true"
+            android:summary="The page's own double-tap zoom." />
+        <SwitchPreferenceCompat android:key="double_tap_top_menu" android:title="Show tabs and address" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="double_tap_bottom_menu" android:title="Show pull-up menu" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="double_tap_fullscreen" android:title="Toggle fullscreen" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="double_tap_reflow" android:title="Re-flow text" android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_two_finger" android:title="Two finger swipe">
+        <ListPreference android:key="two_finger_up" android:title="Two finger swipe up" android:summary="%s" />
+        <ListPreference android:key="two_finger_down" android:title="Two finger swipe down" android:summary="%s" />
+        <ListPreference android:key="two_finger_left" android:title="Two finger swipe left" android:summary="%s" />
+        <ListPreference android:key="two_finger_right" android:title="Two finger swipe right" android:summary="%s" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_double_tap_swipe" android:title="Double tap and drag">
+        <ListPreference android:key="double_tap_up" android:title="Double tap and drag up" android:summary="%s" />
+        <ListPreference android:key="double_tap_down" android:title="Double tap and drag down" android:summary="%s" />
+        <ListPreference android:key="double_tap_left" android:title="Double tap and drag left" android:summary="%s" />
+        <ListPreference android:key="double_tap_right" android:title="Double tap and drag right" android:summary="%s" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_bottom_edge" android:title="Along the bottom edge">
+        <ListPreference android:key="bottom_swipe_left" android:title="Swipe left along the bottom" android:summary="%s" />
+        <ListPreference android:key="bottom_swipe_right" android:title="Swipe right along the bottom" android:summary="%s" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_corners" android:title="Bottom corners">
+        <ListPreference android:key="bottom_left_corner_across" android:title="Left corner, swipe across" android:summary="%s" />
+        <ListPreference android:key="bottom_right_corner_across" android:title="Right corner, swipe across" android:summary="%s" />
+        <ListPreference android:key="bottom_left_corner_up" android:title="Left corner, swipe up" android:summary="%s" />
+        <ListPreference android:key="bottom_right_corner_up" android:title="Right corner, swipe up" android:summary="%s" />
+        <ListPreference android:key="bottom_left_corner_tap" android:title="Left corner tap" android:summary="%s. Long press a corner to pause corner taps until the page is tapped elsewhere." />
+        <ListPreference android:key="bottom_right_corner_tap" android:title="Right corner tap" android:summary="%s" />
+    </PreferenceCategory>
+</PreferenceScreen>

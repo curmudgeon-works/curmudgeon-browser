@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference android:key="screen_data" android:title="Data options" android:summary="Clear and manage history, cookies, cache, bookmarks and site permissions." />
+    <Preference android:key="screen_gestures" android:title="Gestures and actions" android:summary="Menus, volume buttons, link long press, swipes, corner taps and more." />
+    <Preference android:key="screen_privacy" android:title="Privacy and blocking" android:summary="Ad and tracker blocking, Do Not Track, Safe Browsing." />
+
+    <SwitchPreferenceCompat android:key="javascript" android:title="JavaScript" android:defaultValue="true"
+        android:summary="If off, use the pull-up menu's JavaScript button to allow it for one tab. Long press that button to manage sites that always get JavaScript." />
+    <ListPreference android:key="image_policy" android:title="Images" android:defaultValue="0"
+        android:entries="@array/image_policies" android:entryValues="@array/image_policy_values"
+        android:summary="%s. If off or Wi-Fi only, the pull-up menu's image button loads them for one tab; long press it for sites that always get images." />
+
+    <PreferenceCategory android:key="category_zoom" android:title="Zoom and text">
+        <SeekBarPreference android:key="text_zoom" android:title="Text size" android:defaultValue="100" android:max="200" app:min="50" app:seekBarIncrement="5" app:showSeekBarValue="true" />
+        <SwitchPreferenceCompat android:key="zoom_reflows_text" android:title="Zoom re-flows text" android:defaultValue="false"
+            android:summary="Wrap text to the screen after zooming. Can be annoying; you can bind re-flow to a gesture instead." />
+        <SwitchPreferenceCompat android:key="wide_viewport" android:title="Wide viewport" android:defaultValue="true"
+            android:summary="Let pages lay out wider than the screen instead of squeezing everything in." />
+        <SwitchPreferenceCompat android:key="open_in_overview" android:title="Open pages zoomed out" android:defaultValue="false"
+            android:summary="Zoom all the way out when a page loads. Double tap to zoom in. Works best with wide viewport." />
+        <SwitchPreferenceCompat android:key="text_auto_size" android:title="Text auto-size" android:defaultValue="false"
+            android:summary="Boost small fonts to make them readable." />
+        <SwitchPreferenceCompat android:key="zoom_buttons" android:title="Show + / − zoom buttons" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="force_dark_pages" android:title="Dark pages" android:defaultValue="false"
+            android:summary="Ask sites for their dark theme and darken pages that have none." />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_search" android:title="Search">
+        <ListPreference android:key="search_url" android:title="Search engine" android:defaultValue="https://duckduckgo.com/?q="
+            android:summary="%s" />
+        <SwitchPreferenceCompat android:key="search_suggestions" android:title="Search suggestions" android:defaultValue="false"
+            android:summary="Show Google suggestions while typing in the address bar. Privacy: what you type is sent to Google; addresses you visit are not." />
+        <ListPreference android:key="url_bar_keyboard" android:title="Address bar and keyboard" android:defaultValue="0"
+            android:entries="@array/url_bar_modes" android:entryValues="@array/url_bar_mode_values"
+            android:summary="%s" />
+        <SwitchPreferenceCompat android:key="suggest_bookmarks_first" android:title="Suggest bookmarks first" android:defaultValue="true"
+            android:summary="While typing in the address bar, list bookmarks before history." />
+        <EditTextPreference android:key="search_engines" android:title="Search engine list" android:defaultValue=""
+            android:summary="One engine per line as Name|https://address?q= . Shown when you long press the go button." />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_tabs" android:title="Tabs">
+        <ListPreference android:key="tab_close_method" android:title="Tab close method" android:defaultValue="0"
+            android:entries="@array/tab_close_methods" android:entryValues="@array/tab_close_method_values"
+            android:summary="%s. Long press the + button to reopen closed tabs." />
+        <ListPreference android:key="tab_rows" android:title="Lines of text on tabs" android:defaultValue="2"
+            android:entries="@array/tab_rows" android:entryValues="@array/tab_rows" android:summary="%s" />
+        <SeekBarPreference android:key="tab_width" android:title="Tab width (dp)" android:defaultValue="110" android:max="220" app:min="70" app:seekBarIncrement="5" app:showSeekBarValue="true" />
+        <SwitchPreferenceCompat android:key="remember_tabs" android:title="Remember tabs" android:defaultValue="true"
+            android:summary="Reopen your tabs the next time the browser starts." />
+        <ListPreference android:key="tab_cache_threshold" android:title="Tabs kept in memory" android:defaultValue="6"
+            android:entries="@array/tab_cache" android:entryValues="@array/tab_cache_values"
+            android:summary="%s. Tabs beyond this are paused to save memory and reload when shown; their titles are italic." />
+        <ListPreference android:key="bookmark_open_behavior" android:title="Opening bookmarks" android:defaultValue="0"
+            android:entries="@array/bookmark_open" android:entryValues="@array/bookmark_open_values" android:summary="%s" />
+        <SwitchPreferenceCompat android:key="bottom_tabs_and_url" android:title="Tabs and address at the bottom" android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_home" android:title="Home page">
+        <EditTextPreference android:key="home_page" android:title="Home page" android:defaultValue="about:home"
+            android:summary="Where new tabs and the home button go. about:home is the built-in page." />
+        <SwitchPreferenceCompat android:key="home_search_box" android:title="Search box on home page" android:defaultValue="true" />
+        <SwitchPreferenceCompat android:key="home_bookmarks" android:title="Bookmarks on home page" android:defaultValue="true" />
+        <SwitchPreferenceCompat android:key="home_history" android:title="Recent history on home page" android:defaultValue="true" />
+        <SwitchPreferenceCompat android:key="keyboard_on_new_tab" android:title="Keyboard on new tab" android:defaultValue="true"
+            android:summary="Put the cursor in the address bar when you open a new tab." />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:key="category_etc" android:title="Etc.">
+        <ListPreference android:key="security_exceptions" android:title="Certificate problems" android:defaultValue="2"
+            android:entries="@array/security_modes" android:entryValues="@array/security_mode_values"
+            android:summary="%s, when a site's security certificate is invalid." />
+        <SwitchPreferenceCompat android:key="allow_popups" android:title="Popups allowed" android:defaultValue="false"
+            android:summary="Let sites open windows you did not tap for. You are asked each time." />
+        <SwitchPreferenceCompat android:key="system_downloader" android:title="System downloader" android:defaultValue="true"
+            android:summary="Download with Android's download manager. If off, downloads are handed to another app. Long press the downloads button to toggle." />
+        <SwitchPreferenceCompat android:key="geolocation" android:title="Location requests" android:defaultValue="false"
+            android:summary="Let sites ask for your location; you allow or deny each site." />
+        <SwitchPreferenceCompat android:key="background_load_intents" android:title="Open links from other apps in the background" android:defaultValue="false"
+            android:summary="A link tapped in another app opens as a new tab while you stay in that app." />
+        <SwitchPreferenceCompat android:key="keep_screen_on" android:title="Keep screen on" android:defaultValue="false"
+            android:summary="Keep the screen awake while the browser is in front. Fullscreen video always keeps it on." />
+        <SwitchPreferenceCompat android:key="force_youtube_app" android:title="Open YouTube links in the YouTube app" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="alt_shortcuts" android:title="Alt + key shortcuts" android:defaultValue="false"
+            android:summary="With a hardware keyboard, Alt works like Ctrl: T new tab, W close tab, R reload, L address bar, F find." />
+        <EditTextPreference android:key="desktop_user_agent" android:title="Desktop site user agent" android:defaultValue=""
+            android:summary="Leave empty to derive one from the built-in browser engine." />
+    </PreferenceCategory>
+
+    <Preference android:key="screen_more" android:title="More configuration" android:summary="Home page HTML and night mode colours." />
+    <Preference android:key="about" android:title="About" />
+</PreferenceScreen>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Curmudgeon" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/bg</item>
+        <item name="colorPrimaryDark">@color/menu_bg</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="android:windowBackground">@color/menu_bg</item>
+        <item name="android:textColorPrimary">@color/text</item>
+        <item name="android:textColorSecondary">@color/text_dim</item>
+        <item name="menuIconTint">@color/menu_icon</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q" xmlns:tools="http://schemas.android.com/tools">false</item>
+    </style>
+
+    <!-- Context theme for WebViews when "Dark pages" is off, so sites see prefers-color-scheme: light -->
+    <style name="Theme.Curmudgeon.WebLight" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="Theme.Curmudgeon.Settings" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/bg</item>
+        <item name="colorPrimaryDark">@color/bg</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="android:windowBackground">@color/bg</item>
+        <item name="android:textColorPrimary">@color/text</item>
+        <item name="android:textColorSecondary">@color/text_dim</item>
+        <item name="menuIconTint">@color/text</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
+    <style name="MenuButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="MoreButton">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="RailButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/tab_text</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:drawableTint">@color/menu_icon</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+</resources>

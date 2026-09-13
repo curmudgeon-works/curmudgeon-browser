@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:key="category_clear_now" android:title="Clear now">
+        <Preference android:key="clear_history_now" android:title="Clear history" />
+        <Preference android:key="clear_cache_now" android:title="Clear cache" android:summary="Site storage clears too." />
+        <Preference android:key="clear_cookies_now" android:title="Clear cookies" android:summary="Cookies of sites you chose to keep are not cleared." />
+    </PreferenceCategory>
+    <PreferenceCategory android:key="category_clear_exit" android:title="Clear when you exit">
+        <SwitchPreferenceCompat android:key="clear_history_on_exit" android:title="History" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="clear_cache_on_exit" android:title="Cache" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="clear_cookies_on_exit" android:title="Cookies" android:defaultValue="false"
+            android:summary="Keeps cookies of sites marked with the pull-up menu's cookie button." />
+    </PreferenceCategory>
+    <PreferenceCategory android:key="category_remember" android:title="Remember / allow">
+        <SwitchPreferenceCompat android:key="save_history" android:title="Save history" android:defaultValue="true"
+            android:summary="Turning this off clears history now." />
+        <SwitchPreferenceCompat android:key="save_cookies" android:title="Accept cookies" android:defaultValue="true"
+            android:summary="Turning this off clears cookies now. Warning: many sites break without cookies." />
+        <SwitchPreferenceCompat android:key="third_party_cookies" android:title="Third-party cookies" android:defaultValue="false"
+            android:summary="Off blocks most cross-site tracking. A few sign-in flows need it." />
+        <SwitchPreferenceCompat android:key="save_basic_auth" android:title="Remember site passwords (basic auth)" android:defaultValue="false"
+            android:summary="Only for the browser's own username and password prompt, not web page forms." />
+    </PreferenceCategory>
+    <PreferenceCategory android:key="category_sites" android:title="Site permissions">
+        <Preference android:key="sites_javascript" android:title="Sites with JavaScript" />
+        <Preference android:key="sites_images" android:title="Sites with images" />
+        <Preference android:key="sites_cookies" android:title="Sites whose cookies are kept" />
+        <Preference android:key="sites_geo" android:title="Location decisions" />
+    </PreferenceCategory>
+    <PreferenceCategory android:key="category_bookmarks" android:title="Bookmarks">
+        <Preference android:key="import_bookmarks" android:title="Import bookmarks" android:summary="From a text file with one bookmark per line: group, tab, address, tab, title." />
+        <Preference android:key="export_bookmarks" android:title="Export bookmarks" />
+        <Preference android:key="delete_bookmarks" android:title="Delete all bookmarks" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Pull-up menu: optional scrolling "more" row above two fixed rows of five. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/menu_bg"
+    android:clickable="true"
+    android:focusable="false"
+    android:orientation="vertical">
+
+    <HorizontalScrollView
+        android:id="@+id/moreRow"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton android:id="@+id/btFind" style="@style/MoreButton" android:contentDescription="Find on page" android:src="@drawable/ic_find" />
+            <ImageButton android:id="@+id/btDownloads" style="@style/MoreButton" android:contentDescription="Downloads (long press: toggle system downloader)" android:src="@drawable/ic_download" />
+            <ImageButton android:id="@+id/btShare" style="@style/MoreButton" android:contentDescription="Share page" android:src="@drawable/ic_share" />
+            <ImageButton android:id="@+id/btSavePage" style="@style/MoreButton" android:contentDescription="Save page" android:src="@drawable/ic_save" />
+            <ImageButton android:id="@+id/btNightMode" style="@style/MoreButton" android:contentDescription="Night mode" android:src="@drawable/ic_night" />
+            <ImageButton android:id="@+id/btHaltHistory" style="@style/MoreButton" android:contentDescription="Pause history" android:src="@drawable/ic_pause_history" />
+            <ImageButton android:id="@+id/btShowKeyboard" style="@style/MoreButton" android:contentDescription="Address and keyboard" android:src="@drawable/ic_keyboard" />
+            <ImageButton android:id="@+id/btBookmarkPage" style="@style/MoreButton" android:contentDescription="Bookmark this page" android:src="@drawable/ic_bookmark_add" />
+            <ImageButton android:id="@+id/btCopyUrl" style="@style/MoreButton" android:contentDescription="Copy address" android:src="@drawable/ic_copy" />
+            <ImageButton android:id="@+id/btSelectText" style="@style/MoreButton" android:contentDescription="Allow long press text selection" android:src="@drawable/ic_select_text" />
+            <ImageButton android:id="@+id/btJsReload" style="@style/MoreButton" android:contentDescription="Reload with JavaScript (long press: JavaScript sites)" android:src="@drawable/ic_js" />
+            <ImageButton android:id="@+id/btImages" style="@style/MoreButton" android:contentDescription="Load images (long press: image sites)" android:src="@drawable/ic_images" />
+            <ImageButton android:id="@+id/btCookie" style="@style/MoreButton" android:contentDescription="Keep this site's cookies" android:src="@drawable/ic_cookie" />
+            <ImageButton android:id="@+id/btGeo" style="@style/MoreButton" android:contentDescription="Location permissions" android:src="@drawable/ic_geo" />
+            <ImageButton android:id="@+id/btBack" style="@style/MoreButton" android:contentDescription="Back" android:src="@drawable/ic_back" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <ImageButton android:id="@+id/btReload" style="@style/MenuButton" android:contentDescription="Stop or reload (long press: reload without cache)" android:src="@drawable/ic_reload" />
+        <TextView
+            android:id="@+id/btUserAgent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="Toggle desktop site"
+            android:gravity="center"
+            android:text="android"
+            android:textColor="@color/menu_icon"
+            android:textSize="15sp" />
+        <ImageButton android:id="@+id/btPageTop" style="@style/MenuButton" android:contentDescription="Page top" android:src="@drawable/ic_page_top" />
+        <ImageButton android:id="@+id/btFullscreen" style="@style/MenuButton" android:contentDescription="Fullscreen" android:src="@drawable/ic_fullscreen" />
+        <ImageButton android:id="@+id/btMore" style="@style/MenuButton" android:contentDescription="More" android:src="@drawable/ic_more_up" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:orientation="horizontal">
+
+        <ImageButton android:id="@+id/btLinks" style="@style/MenuButton" android:contentDescription="Bookmarks and history" android:src="@drawable/ic_links" />
+        <ImageButton android:id="@+id/btExit" style="@style/MenuButton" android:contentDescription="Exit" android:src="@drawable/ic_close" />
+        <ImageButton android:id="@+id/btPageEnd" style="@style/MenuButton" android:contentDescription="Page end" android:src="@drawable/ic_page_end" />
+        <ImageButton android:id="@+id/btForward" style="@style/MenuButton" android:contentDescription="Forward" android:src="@drawable/ic_forward" />
+        <ImageButton android:id="@+id/btOptions" style="@style/MenuButton" android:contentDescription="Options" android:src="@drawable/ic_options" />
+    </LinearLayout>
+</LinearLayout>

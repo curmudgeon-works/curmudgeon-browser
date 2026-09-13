@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<!-- Links sidebar: list on the left, section rail (bookmarks / history / popular / done) on the right. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sidebar_bg"
+    android:clickable="true"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/sbHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <Button
+                android:id="@+id/sbNewBookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="new bookmark"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/sbClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="clear history"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/sbList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@color/divider"
+            android:dividerHeight="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="96dp"
+        android:layout_height="match_parent"
+        android:background="@color/sidebar_rail"
+        android:orientation="vertical">
+
+        <TextView android:id="@+id/sbBookmarks" style="@style/RailButton" android:drawableTop="@drawable/ic_links" android:text="bookmarks" />
+        <TextView android:id="@+id/sbHistory" style="@style/RailButton" android:drawableTop="@drawable/ic_history" android:text="history" />
+        <TextView android:id="@+id/sbPopular" style="@style/RailButton" android:drawableTop="@drawable/ic_popular" android:text="popular" />
+        <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+        <TextView android:id="@+id/sbDone" style="@style/RailButton" android:drawableTop="@drawable/ic_close" android:text="done" />
+    </LinearLayout>
+</LinearLayout>

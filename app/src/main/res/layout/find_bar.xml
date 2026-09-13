@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:background="@color/menu_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/findText"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/url_bg"
+        android:hint="find on page"
+        android:imeOptions="actionSearch|flagNoExtractUi"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingStart="8dp"
+        android:singleLine="true"
+        android:textColor="@color/url_text"
+        android:textColorHint="#FF888888" />
+
+    <TextView
+        android:id="@+id/findCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="56dp"
+        android:gravity="center"
+        android:textColor="@color/menu_icon" />
+
+    <ImageButton android:id="@+id/findPrev" android:layout_width="48dp" android:layout_height="match_parent" android:background="?attr/selectableItemBackground" android:contentDescription="Previous" android:src="@drawable/ic_more_up" />
+    <ImageButton android:id="@+id/findNext" android:layout_width="48dp" android:layout_height="match_parent" android:background="?attr/selectableItemBackground" android:contentDescription="Next" android:src="@drawable/ic_more_down" />
+    <ImageButton android:id="@+id/findClose" android:layout_width="48dp" android:layout_height="match_parent" android:background="?attr/selectableItemBackground" android:contentDescription="Close find" android:src="@drawable/ic_close" />
+</LinearLayout>
