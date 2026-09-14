@@ -449,6 +449,7 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
         urlField.setOnFocusChangeListener { _, focused ->
             if (focused) {
                 btGo.setImageResource(R.drawable.ic_go)
+                tintUrlField(tabs.current)
                 showTopMenu()
             } else {
                 suggestions.hide()
@@ -507,6 +508,17 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
         val shown = if (tab.url == Prefs.HOME_URL) "" else tab.url
         if (urlField.text.toString() != shown) urlField.setText(shown)
         btGo.setImageResource(if (tab.progress < 100) R.drawable.ic_close else R.drawable.ic_reload)
+        tintUrlField(tab)
+    }
+
+    /** Like Naked Browser, the address bar shows whether the page is secure: tinted for https, grey for http. */
+    private fun tintUrlField(tab: Tab?) {
+        val color = when {
+            urlField.hasFocus() || tab == null || tab.url == Prefs.HOME_URL || !tab.url.startsWith("http") -> R.color.url_bg
+            tab.url.startsWith("https://") && UrlUtils.host(tab.url) !in sslAllowedHosts -> R.color.url_secure_bg
+            else -> R.color.url_insecure_bg
+        }
+        urlField.setBackgroundColor(ContextCompat.getColor(this, color))
     }
 
     private fun updateProgress(tab: Tab) {

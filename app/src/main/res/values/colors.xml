@@ -12,10 +12,13 @@
     <color name="tab_bg">#FF5E5E5E</color>
     <color name="tab_bg_alt">#FF6E6E6E</color>
     <color name="tab_text">#FFF2F2F2</color>
-    <color name="tab_current_bg">#FFFFFFFF</color>
-    <color name="tab_current_text">#FF000000</color>
-    <color name="url_bg">#FFFFFFFF</color>
-    <color name="url_text">#FF000000</color>
+    <!-- active tab and address bar: faded Curmudgeon orange instead of glaring white (Naked used yellow) -->
+    <color name="tab_current_bg">#FFE3B08A</color>
+    <color name="tab_current_text">#FF1C1A17</color>
+    <color name="url_bg">#FFECE8DF</color>          <!-- neutral cream: typing, home page, find bar -->
+    <color name="url_secure_bg">#FFE3B08A</color>   <!-- https page -->
+    <color name="url_insecure_bg">#FFBDB7AE</color> <!-- http page or allowed certificate problem -->
+    <color name="url_text">#FF1C1A17</color>
     <color name="page_bg">#FF383838</color>
     <color name="sidebar_bg">#FF0A0A0A</color>
     <color name="sidebar_rail">#FF1C1C1C</color>
