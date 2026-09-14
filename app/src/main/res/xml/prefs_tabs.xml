@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ListPreference android:key="tab_close_method" android:title="Tab close method" android:defaultValue="0"
+        android:entries="@array/tab_close_methods" android:entryValues="@array/tab_close_method_values"
+        android:summary="%s. Long press the + button to reopen closed tabs." />
+    <ListPreference android:key="tab_rows" android:title="Lines of text on tabs" android:defaultValue="2"
+        android:entries="@array/tab_rows" android:entryValues="@array/tab_rows" android:summary="%s" />
+    <SeekBarPreference android:key="tab_width" android:title="Tab width (dp)" android:defaultValue="110" android:max="220" app:min="70" app:seekBarIncrement="5" app:showSeekBarValue="true" />
+    <SwitchPreferenceCompat android:key="remember_tabs" android:title="Remember tabs" android:defaultValue="true"
+        android:summary="Reopen your tabs the next time the browser starts." />
+    <ListPreference android:key="tab_cache_threshold" android:title="Tabs kept in memory" android:defaultValue="6"
+        android:entries="@array/tab_cache" android:entryValues="@array/tab_cache_values"
+        android:summary="%s. Tabs beyond this are paused to save memory and reload when shown; their titles are italic." />
+    <ListPreference android:key="bookmark_open_behavior" android:title="Opening bookmarks" android:defaultValue="0"
+        android:entries="@array/bookmark_open" android:entryValues="@array/bookmark_open_values" android:summary="%s" />
+    <SwitchPreferenceCompat android:key="bottom_tabs_and_url" android:title="Tabs and address at the bottom" android:defaultValue="false" />
+</PreferenceScreen>

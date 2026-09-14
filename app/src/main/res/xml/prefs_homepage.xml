@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <EditTextPreference android:key="home_page" android:title="Home page" android:defaultValue="about:home"
+        android:summary="Where new tabs and the home button go. about:home is the built-in page." />
+    <SwitchPreferenceCompat android:key="home_search_box" android:title="Search box on home page" android:defaultValue="true" />
+    <SwitchPreferenceCompat android:key="home_bookmarks" android:title="Bookmarks on home page" android:defaultValue="true" />
+    <SwitchPreferenceCompat android:key="home_history" android:title="Recent history on home page" android:defaultValue="true" />
+    <SwitchPreferenceCompat android:key="keyboard_on_new_tab" android:title="Keyboard on new tab" android:defaultValue="true"
+        android:summary="Put the cursor in the address bar when you open a new tab." />
+</PreferenceScreen>

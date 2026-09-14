@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ListPreference android:key="security_exceptions" android:title="Certificate problems" android:defaultValue="2"
+        android:entries="@array/security_modes" android:entryValues="@array/security_mode_values"
+        android:summary="%s, when a site's security certificate is invalid." />
+    <SwitchPreferenceCompat android:key="allow_popups" android:title="Popups allowed" android:defaultValue="false"
+        android:summary="Let sites open windows you did not tap for. You are asked each time." />
+    <SwitchPreferenceCompat android:key="system_downloader" android:title="System downloader" android:defaultValue="true"
+        android:summary="Download with Android's download manager. If off, downloads are handed to another app. Long press the downloads button to toggle." />
+    <SwitchPreferenceCompat android:key="geolocation" android:title="Location requests" android:defaultValue="false"
+        android:summary="Let sites ask for your location; you allow or deny each site." />
+    <SwitchPreferenceCompat android:key="background_load_intents" android:title="Open links from other apps in the background" android:defaultValue="false"
+        android:summary="A link tapped in another app opens as a new tab while you stay in that app." />
+    <SwitchPreferenceCompat android:key="keep_screen_on" android:title="Keep screen on" android:defaultValue="false"
+        android:summary="Keep the screen awake while the browser is in front. Fullscreen video always keeps it on." />
+    <SwitchPreferenceCompat android:key="force_youtube_app" android:title="Open YouTube links in the YouTube app" android:defaultValue="false" />
+    <SwitchPreferenceCompat android:key="alt_shortcuts" android:title="Alt + key shortcuts" android:defaultValue="false"
+        android:summary="With a hardware keyboard, Alt works like Ctrl: T new tab, W close tab, R reload, L address bar, F find." />
+    <EditTextPreference android:key="desktop_user_agent" android:title="Desktop site user agent" android:defaultValue=""
+        android:summary="Leave empty to derive one from the built-in browser engine." />
+</PreferenceScreen>

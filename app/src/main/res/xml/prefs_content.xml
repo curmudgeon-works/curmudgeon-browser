@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat android:key="javascript" android:title="JavaScript" android:defaultValue="true"
+        android:summary="If off, use the pull-up menu's JavaScript button to allow it for one tab. Long press that button to manage sites that always get JavaScript." />
+    <ListPreference android:key="image_policy" android:title="Images" android:defaultValue="0"
+        android:entries="@array/image_policies" android:entryValues="@array/image_policy_values"
+        android:summary="%s. If off or Wi-Fi only, the pull-up menu's image button loads them for one tab; long press it for sites that always get images." />
+    <PreferenceCategory android:key="category_zoom" android:title="Zoom and text">
+        <SeekBarPreference android:key="text_zoom" android:title="Text size" android:defaultValue="100" android:max="200" app:min="50" app:seekBarIncrement="5" app:showSeekBarValue="true" />
+        <SwitchPreferenceCompat android:key="zoom_reflows_text" android:title="Zoom re-flows text" android:defaultValue="false"
+            android:summary="Wrap text to the screen after zooming. Can be annoying; you can bind re-flow to a gesture instead." />
+        <SwitchPreferenceCompat android:key="wide_viewport" android:title="Wide viewport" android:defaultValue="true"
+            android:summary="Let pages lay out wider than the screen instead of squeezing everything in." />
+        <SwitchPreferenceCompat android:key="open_in_overview" android:title="Open pages zoomed out" android:defaultValue="false"
+            android:summary="Zoom all the way out when a page loads. Double tap to zoom in. Works best with wide viewport." />
+        <SwitchPreferenceCompat android:key="text_auto_size" android:title="Text auto-size" android:defaultValue="false"
+            android:summary="Boost small fonts to make them readable." />
+        <SwitchPreferenceCompat android:key="zoom_buttons" android:title="Show + / − zoom buttons" android:defaultValue="false" />
+        <SwitchPreferenceCompat android:key="force_dark_pages" android:title="Dark pages" android:defaultValue="false"
+            android:summary="Ask sites for their dark theme and darken pages that have none." />
+    </PreferenceCategory>
+</PreferenceScreen>

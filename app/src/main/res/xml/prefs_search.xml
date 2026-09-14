@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ListPreference android:key="search_url" android:title="Search engine" android:defaultValue="https://duckduckgo.com/?q="
+        android:summary="%s" />
+    <SwitchPreferenceCompat android:key="search_suggestions" android:title="Search suggestions" android:defaultValue="false"
+        android:summary="Show Google suggestions while typing in the address bar. Privacy: what you type is sent to Google; addresses you visit are not." />
+    <ListPreference android:key="url_bar_keyboard" android:title="Address bar and keyboard" android:defaultValue="0"
+        android:entries="@array/url_bar_modes" android:entryValues="@array/url_bar_mode_values"
+        android:summary="%s" />
+    <SwitchPreferenceCompat android:key="suggest_bookmarks_first" android:title="Suggest bookmarks first" android:defaultValue="true"
+        android:summary="While typing in the address bar, list bookmarks before history." />
+    <EditTextPreference android:key="search_engines" android:title="Search engine list" android:defaultValue=""
+        android:summary="One engine per line as Name|https://address?q= . Shown when you long press the go button." />
+</PreferenceScreen>

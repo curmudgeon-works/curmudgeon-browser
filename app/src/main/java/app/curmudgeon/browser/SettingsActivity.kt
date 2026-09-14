@@ -4,12 +4,22 @@ package app.curmudgeon.browser
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ListView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isVisible
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -19,48 +29,114 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceGroup
 import androidx.preference.SwitchPreferenceCompat
 
-/** Settings: one activity, one fragment class per screen XML, and a Simple / Advanced switch in the toolbar. */
+/**
+ * Settings, structured like Curmudgeon Keyboard and Rotation: a home list of sections, one screen per section,
+ * and a top bar with back, title, the Simple / Advanced switch and search (search always covers every setting).
+ */
 class SettingsActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
+    private lateinit var title: TextView
+    private lateinit var searchField: EditText
+    private lateinit var searchResults: ListView
+    private lateinit var container: View
+    private val index by lazy { SettingsIndex.build(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         prefs = Prefs(this)
-        val root = findViewById<android.view.View>(R.id.settingsRoot)
+        val root = findViewById<View>(R.id.settingsRoot)
         ViewCompat.setOnApplyWindowInsetsListener(root) { v, insets ->
-            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout() or WindowInsetsCompat.Type.ime())
             v.updatePadding(top = bars.top, bottom = bars.bottom, left = bars.left, right = bars.right)
             insets
         }
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        title = findViewById(R.id.title)
+        searchField = findViewById(R.id.searchField)
+        searchResults = findViewById(R.id.searchResults)
+        container = findViewById(R.id.settingsContainer)
 
+        findViewById<View>(R.id.backButton).setOnClickListener { onBackPressedDispatcher.onBackPressed() }
         val switch = findViewById<SwitchCompat>(R.id.advancedSwitch)
         switch.isChecked = prefs.advancedSettings
         switch.setOnCheckedChangeListener { _, checked ->
             prefs.set(Prefs.ADVANCED_SETTINGS, checked)
             (supportFragmentManager.findFragmentById(R.id.settingsContainer) as? ScreenFragment)?.applyMode()
         }
+        findViewById<View>(R.id.searchButton).setOnClickListener { if (searchField.isVisible) closeSearch() else openSearch() }
+        searchField.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) = showResults(s.toString())
+        })
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                when {
+                    searchField.isVisible -> closeSearch()
+                    supportFragmentManager.backStackEntryCount > 0 -> supportFragmentManager.popBackStack()
+                    else -> finish()
+                }
+            }
+        })
 
-        if (savedInstanceState == null) show(R.xml.prefs_root, "Options", addToBackStack = false)
+        if (savedInstanceState == null) show(R.xml.prefs_root, HOME_TITLE, addToBackStack = false)
         supportFragmentManager.addOnBackStackChangedListener { updateTitle() }
         updateTitle()
     }
 
-    fun show(xml: Int, title: String, addToBackStack: Boolean = true) {
+    fun show(xml: Int, title: String, addToBackStack: Boolean = true, focusKey: String? = null) {
         val tx = supportFragmentManager.beginTransaction()
-            .replace(R.id.settingsContainer, ScreenFragment.newInstance(xml, title))
+            .replace(R.id.settingsContainer, ScreenFragment.newInstance(xml, title, focusKey))
         if (addToBackStack) tx.addToBackStack(title)
         tx.commit()
-        supportActionBar?.title = title
+        this.title.text = title
     }
 
     private fun updateTitle() {
         val f = supportFragmentManager.findFragmentById(R.id.settingsContainer) as? ScreenFragment
-        supportActionBar?.title = f?.arguments?.getString(ARG_TITLE) ?: "Options"
+        title.text = f?.arguments?.getString(ARG_TITLE) ?: HOME_TITLE
+    }
+
+    // --- search ---
+
+    private fun openSearch() {
+        title.isVisible = false
+        searchField.isVisible = true
+        searchField.setText("")
+        searchField.requestFocus()
+        WindowInsetsControllerCompat(window, searchField).show(WindowInsetsCompat.Type.ime())
+    }
+
+    private fun closeSearch() {
+        WindowInsetsControllerCompat(window, searchField).hide(WindowInsetsCompat.Type.ime())
+        searchField.isVisible = false
+        title.isVisible = true
+        searchResults.isVisible = false
+        container.isVisible = true
+    }
+
+    private fun showResults(query: String) {
+        val q = query.trim()
+        if (q.isEmpty()) { searchResults.isVisible = false; container.isVisible = true; return }
+        val hits = index.filter { it.matches(q) }
+        searchResults.adapter = object : ArrayAdapter<SettingsIndex.Entry>(this, R.layout.list_row, R.id.rowTitle, hits) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val v = super.getView(position, convertView, parent)
+                val e = hits[position]
+                v.findViewById<TextView>(R.id.rowTitle).text = e.title
+                v.findViewById<TextView>(R.id.rowSubtitle).text = listOfNotNull(e.sectionTitle, e.category).joinToString(" › ")
+                return v
+            }
+        }
+        searchResults.setOnItemClickListener { _, _, position, _ ->
+            val e = hits[position]
+            closeSearch()
+            supportFragmentManager.popBackStack(null, androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            if (e.sectionXml == R.xml.prefs_root) show(R.xml.prefs_root, HOME_TITLE, addToBackStack = false, focusKey = e.key)
+            else show(e.sectionXml, e.sectionTitle, focusKey = e.key)
+        }
+        container.isVisible = false
+        searchResults.isVisible = true
     }
 
     /** One settings screen. Hides advanced items in simple mode; search-style lookups are not filtered. */
@@ -74,6 +150,7 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(requireArguments().getInt(ARG_XML), rootKey)
             setUpGestureLists(preferenceScreen)
+            SECTIONS.keys.forEach { key -> findPreference<Preference>(key)?.widgetLayoutResource = R.layout.pref_chevron }
             findPreference<ListPreference>(Prefs.SEARCH_URL)?.let { setUpSearchEngines(it) }
             findPreference<Preference>("about")?.summary = "Version ${BuildConfig.VERSION_NAME} · GPL-3.0 · no ads, no accounts, no analytics"
             findPreference<SwitchPreferenceCompat>(Prefs.BLOCK_ADS)?.setOnPreferenceChangeListener { _, on ->
@@ -90,15 +167,23 @@ class SettingsActivity : AppCompatActivity() {
             applyMode()
         }
 
-        /** Shows everything in advanced mode; in simple mode only [SIMPLE_KEYS], and categories that still have children. */
+        /**
+         * Shows everything in advanced mode; in simple mode only [SIMPLE_KEYS] and categories that still have children.
+         * Home rows hide in simple mode when their whole section is advanced. Opened from search: everything shows.
+         */
         fun applyMode() {
-            val advanced = prefs.advancedSettings
+            val advanced = prefs.advancedSettings || requireArguments().getString(ARG_FOCUS) != null
             fun apply(group: PreferenceGroup): Boolean {
                 var anyVisible = false
                 for (i in 0 until group.preferenceCount) {
                     val p = group.getPreference(i)
                     p.isIconSpaceReserved = false
-                    val visible = if (p is PreferenceGroup) apply(p) else advanced || p.key in SIMPLE_KEYS
+                    val section = SECTIONS[p.key]
+                    val visible = when {
+                        p is PreferenceGroup -> apply(p)
+                        section != null -> advanced || SettingsIndex.hasSimple(requireContext(), section.first)
+                        else -> advanced || p.key in SIMPLE_KEYS
+                    }
                     p.isVisible = visible
                     anyVisible = anyVisible || visible
                 }
@@ -128,13 +213,15 @@ class SettingsActivity : AppCompatActivity() {
             if (list.value == null) list.value = current
         }
 
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            requireArguments().getString(ARG_FOCUS)?.let { key -> view.post { scrollToPreference(key) } }
+        }
+
         override fun onPreferenceTreeClick(preference: Preference): Boolean {
             val activity = activity as? SettingsActivity ?: return super.onPreferenceTreeClick(preference)
+            SECTIONS[preference.key]?.let { (xml, title) -> activity.show(xml, title); return true }
             when (preference.key) {
-                "screen_data" -> activity.show(R.xml.prefs_data, "Data options")
-                "screen_gestures" -> activity.show(R.xml.prefs_gestures, "Gestures and actions")
-                "screen_privacy" -> activity.show(R.xml.prefs_privacy, "Privacy and blocking")
-                "screen_more" -> activity.show(R.xml.prefs_more, "More configuration")
                 "about" -> showAbout()
                 "clear_history_now" -> confirm("Clear all history?") { DataCleaner.clearHistory(requireContext()); toast("History cleared") }
                 "clear_cache_now" -> confirm("Clear cache and site storage?") { DataCleaner.clearCache(requireContext(), null); toast("Cache cleared") }
@@ -228,8 +315,8 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         companion object {
-            fun newInstance(xml: Int, title: String) = ScreenFragment().apply {
-                arguments = Bundle().apply { putInt(ARG_XML, xml); putString(ARG_TITLE, title) }
+            fun newInstance(xml: Int, title: String, focusKey: String? = null) = ScreenFragment().apply {
+                arguments = Bundle().apply { putInt(ARG_XML, xml); putString(ARG_TITLE, title); putString(ARG_FOCUS, focusKey) }
             }
         }
     }
@@ -237,6 +324,21 @@ class SettingsActivity : AppCompatActivity() {
     companion object {
         const val ARG_XML = "xml"
         const val ARG_TITLE = "title"
+        const val ARG_FOCUS = "focus"
+        const val HOME_TITLE = "Curmudgeon Browser Settings"
+
+        /** Home row key -> (screen XML, screen title). */
+        val SECTIONS = linkedMapOf(
+            "section_content" to (R.xml.prefs_content to "Pages and zoom"),
+            "section_tabs" to (R.xml.prefs_tabs to "Tabs"),
+            "section_gestures" to (R.xml.prefs_gestures to "Gestures and actions"),
+            "section_search" to (R.xml.prefs_search to "Search"),
+            "section_homepage" to (R.xml.prefs_homepage to "Home page"),
+            "section_privacy" to (R.xml.prefs_privacy to "Privacy and blocking"),
+            "section_data" to (R.xml.prefs_data to "Data"),
+            "section_etc" to (R.xml.prefs_etc to "Downloads, popups and more"),
+            "section_more" to (R.xml.prefs_more to "More configuration"),
+        )
 
         val GESTURE_KEYS = setOf(
             Prefs.TWO_FINGER_UP, Prefs.TWO_FINGER_DOWN, Prefs.TWO_FINGER_LEFT, Prefs.TWO_FINGER_RIGHT,
@@ -249,8 +351,7 @@ class SettingsActivity : AppCompatActivity() {
 
         /** Shown in simple mode. Everything else appears only with the Advanced switch on. */
         val SIMPLE_KEYS = setOf(
-            // Options
-            "screen_data", "screen_gestures", "screen_privacy", "about",
+            "about",
             Prefs.JAVASCRIPT, Prefs.IMAGE_POLICY, Prefs.TEXT_ZOOM, Prefs.FORCE_DARK_PAGES,
             Prefs.SEARCH_URL, Prefs.SEARCH_SUGGESTIONS,
             Prefs.TAB_CLOSE_METHOD, Prefs.TAB_ROWS, Prefs.REMEMBER_TABS, Prefs.BOTTOM_TABS_AND_URL,
