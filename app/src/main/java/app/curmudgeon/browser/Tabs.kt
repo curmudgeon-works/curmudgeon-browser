@@ -17,6 +17,10 @@ class Tab(val id: Long, var url: String, var title: String = "") {
     var desktopMode = false
     /** Opened from another app's link: back at the start of its history returns to that app. */
     var openedExternally = false
+    /** The tab whose page opened this one (a new window or "Open in new tab"): back at the start of history returns there. */
+    var openerId: Long? = null
+    /** Unfinished text in the address bar, kept while the user looks at another tab. */
+    var addressDraft: String? = null
     /** JavaScript / images temporarily allowed for this tab from the bottom menu. */
     var tempJavaScript = false
     var tempImages = false
@@ -73,16 +77,19 @@ class TabManager(
         onChanged()
     }
 
-    fun close(index: Int) {
+    /** Closes the tab at [index]. With [returnToOpener] the tab that opened it is shown next, if it still exists. */
+    fun close(index: Int, returnToOpener: Boolean = false) {
         val tab = tabs.getOrNull(index) ?: return
         val state = tab.webView?.let { wv -> Bundle().also { wv.saveState(it) } } ?: tab.savedState
-        closed.addFirst(ClosedTab(tab.url, tab.title, state))
+        if (tab.url.isNotEmpty()) closed.addFirst(ClosedTab(tab.url, tab.title, state))
         while (closed.size > MAX_CLOSED) closed.removeLast()
         if (tab.webView != null) destroyWebView(tab)
         tab.webView = null
         tabs.removeAt(index)
+        val opener = if (returnToOpener) tabs.indexOfFirst { it.id == tab.openerId } else -1
         when {
             tabs.isEmpty() -> { currentIndex = -1; newTab(Prefs.HOME_URL); return }
+            opener >= 0 -> currentIndex = opener
             index < currentIndex -> currentIndex--
             index == currentIndex -> currentIndex = index.coerceAtMost(tabs.lastIndex) // the right neighbour slides into place
         }
@@ -90,8 +97,9 @@ class TabManager(
     }
 
     /** A tab for a page-opened window (popup): the WebView is created now and filled by the page. */
-    fun newTabForWindow(): Tab {
+    fun newTabForWindow(opener: Tab?): Tab {
         val tab = Tab(nextId++, "")
+        tab.openerId = opener?.id
         tabs.add((currentIndex + 1).coerceAtMost(tabs.size), tab)
         tab.webView = createWebView(tab)
         select(tabs.indexOf(tab))
@@ -99,6 +107,11 @@ class TabManager(
     }
 
     fun indexOf(webView: WebView) = tabs.indexOfFirst { it.webView === webView }
+
+    fun exists(id: Long?) = id != null && tabs.any { it.id == id }
+
+    /** Each tab's back/forward history as a Bundle (null for a tab with none yet), in tab order. */
+    fun historyStates(): List<Bundle?> = tabs.map { t -> t.webView?.let { wv -> Bundle().also { wv.saveState(it) } } ?: t.savedState }
 
     fun undoClose(position: Int = 0): Tab? {
         if (position !in closed.indices) return null

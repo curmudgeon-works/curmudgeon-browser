@@ -14,6 +14,8 @@
         android:summary="A link tapped in another app opens as a new tab while you stay in that app." />
     <SwitchPreferenceCompat android:key="keep_screen_on" android:title="Keep screen on" android:defaultValue="false"
         android:summary="Keep the screen awake while the browser is in front. Fullscreen video always keeps it on." />
+    <SwitchPreferenceCompat android:key="open_links_in_apps" android:title="Open links in apps" android:defaultValue="false"
+        android:summary="A link you tap to another site opens in its app when one is installed (Maps, Spotify, Zoom…). Off: links stay on the website. Toggle it from the pull-up menu; long press a link for Open in app." />
     <SwitchPreferenceCompat android:key="force_youtube_app" android:title="Open YouTube links in the YouTube app" android:defaultValue="false" />
     <SwitchPreferenceCompat android:key="alt_shortcuts" android:title="Alt + key shortcuts" android:defaultValue="false"
         android:summary="With a hardware keyboard, Alt works like Ctrl: T new tab, W close tab, R reload, L address bar, F find." />

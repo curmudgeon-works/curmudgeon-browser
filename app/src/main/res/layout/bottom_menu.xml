@@ -24,7 +24,8 @@
             <ImageButton android:id="@+id/btFind" style="@style/MoreButton" android:contentDescription="Find on page" android:src="@drawable/ic_find" />
             <ImageButton android:id="@+id/btDownloads" style="@style/MoreButton" android:contentDescription="Downloads (long press: toggle system downloader)" android:src="@drawable/ic_download" />
             <ImageButton android:id="@+id/btShare" style="@style/MoreButton" android:contentDescription="Share page" android:src="@drawable/ic_share" />
-            <ImageButton android:id="@+id/btSavePage" style="@style/MoreButton" android:contentDescription="Save page" android:src="@drawable/ic_save" />
+            <ImageButton android:id="@+id/btOpenInApps" style="@style/MoreButton" android:contentDescription="Open links in apps (on or off)" android:src="@drawable/ic_open_in_app" />
+            <ImageButton android:id="@+id/btSavePage" style="@style/MoreButton" android:contentDescription="Print or save as PDF (long press: save web archive)" android:src="@drawable/ic_save" />
             <ImageButton android:id="@+id/btNightMode" style="@style/MoreButton" android:contentDescription="Night mode" android:src="@drawable/ic_night" />
             <ImageButton android:id="@+id/btHaltHistory" style="@style/MoreButton" android:contentDescription="Pause history" android:src="@drawable/ic_pause_history" />
             <ImageButton android:id="@+id/btShowKeyboard" style="@style/MoreButton" android:contentDescription="Address and keyboard" android:src="@drawable/ic_keyboard" />

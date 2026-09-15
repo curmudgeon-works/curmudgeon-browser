@@ -63,6 +63,22 @@ class UrlUtilsTest {
         assertTrue(desktop.contains("X11; Linux x86_64"))
     }
 
+    @Test fun browserUserAgentDropsWebViewMarkers() {
+        val webView = "Mozilla/5.0 (Linux; Android 17; Pixel 11 Pro XL Build/CD1A; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/151.0.7922.199 Mobile Safari/537.36"
+        assertEquals(
+            "Mozilla/5.0 (Linux; Android 17; Pixel 11 Pro XL Build/CD1A) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.7922.199 Mobile Safari/537.36",
+            UrlUtils.browserUserAgent(webView),
+        )
+        assertEquals("Mozilla/5.0 (X11; Linux x86_64) Chrome/1", UrlUtils.browserUserAgent("Mozilla/5.0 (X11; Linux x86_64) Chrome/1"))
+    }
+
+    @Test fun sameSite() {
+        assertTrue(UrlUtils.sameSite("https://www.google.com/maps", "https://google.com/x"))
+        assertTrue(UrlUtils.sameSite("https://maps.google.com/", "https://google.com/"))
+        assertFalse(UrlUtils.sameSite("https://news.site/a", "https://maps.google.com/b"))
+        assertFalse(UrlUtils.sameSite(null, "https://a.com"))
+    }
+
     @Test fun tabLabels() {
         assertEquals("Title", UrlUtils.tabLabel(" Title ", "https://x.com"))
         assertEquals("x.com", UrlUtils.tabLabel("", "https://www.x.com/a"))

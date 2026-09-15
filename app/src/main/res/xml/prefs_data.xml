@@ -18,7 +18,7 @@
         <SwitchPreferenceCompat android:key="save_cookies" android:title="Accept cookies" android:defaultValue="true"
             android:summary="Turning this off clears cookies now. Warning: many sites break without cookies." />
         <SwitchPreferenceCompat android:key="third_party_cookies" android:title="Third-party cookies" android:defaultValue="false"
-            android:summary="Off blocks most cross-site tracking. A few sign-in flows need it." />
+            android:summary="Off blocks most cross-site tracking. If a sign-in or embedded page breaks, allow them for that site with the pull-up menu's cookie button." />
         <SwitchPreferenceCompat android:key="save_basic_auth" android:title="Remember site passwords (basic auth)" android:defaultValue="false"
             android:summary="Only for the browser's own username and password prompt, not web page forms." />
     </PreferenceCategory>
@@ -26,6 +26,7 @@
         <Preference android:key="sites_javascript" android:title="Sites with JavaScript" />
         <Preference android:key="sites_images" android:title="Sites with images" />
         <Preference android:key="sites_cookies" android:title="Sites whose cookies are kept" />
+        <Preference android:key="sites_third_party_cookies" android:title="Sites allowed third-party cookies" />
         <Preference android:key="sites_geo" android:title="Location decisions" />
     </PreferenceCategory>
     <PreferenceCategory android:key="category_bookmarks" android:title="Bookmarks">

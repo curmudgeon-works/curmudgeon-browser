@@ -33,7 +33,9 @@ object DataCleaner {
         cm.removeAllCookies {
             saved.forEach { (host, cookies) ->
                 cookies!!.split(';').map { it.trim() }.filter { it.isNotEmpty() }.forEach { pair ->
-                    cm.setCookie("https://$host", "$pair; Domain=$host; Path=/")
+                    // __Host- cookies must not carry a Domain; both prefixes require Secure
+                    val attrs = if (pair.startsWith("__Host-")) "Path=/; Secure" else "Domain=$host; Path=/; Secure"
+                    cm.setCookie("https://$host", "$pair; $attrs")
                 }
             }
             cm.flush()

@@ -16,7 +16,7 @@ data class HistoryEntry(val url: String, val title: String, val visits: Int, val
 class BrowserDb private constructor(context: Context) :
     SQLiteOpenHelper(context.applicationContext, "browser.db", null, 1) {
 
-    enum class SiteList { JAVASCRIPT, IMAGES, COOKIES_KEEP, GEO_ALLOW, GEO_DENY }
+    enum class SiteList { JAVASCRIPT, IMAGES, COOKIES_KEEP, GEO_ALLOW, GEO_DENY, THIRD_PARTY_COOKIES, DRM_ALLOW }
 
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE bookmarks (id INTEGER PRIMARY KEY AUTOINCREMENT, grp TEXT NOT NULL DEFAULT '', title TEXT NOT NULL, url TEXT NOT NULL, created INTEGER NOT NULL)")

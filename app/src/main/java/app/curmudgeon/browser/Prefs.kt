@@ -98,6 +98,8 @@ class Prefs(context: Context) {
     val backgroundLoadIntents get() = bool(BACKGROUND_LOAD_INTENTS, false)
     val keepScreenOn get() = bool(KEEP_SCREEN_ON, false)
     val forceYouTubeApp get() = bool(FORCE_YOUTUBE_APP, false)
+    /** Tapped links to other sites open in their app when one is installed (off: stay on the website). */
+    val openLinksInApps get() = bool(OPEN_LINKS_IN_APPS, false)
     val altShortcuts get() = bool(ALT_SHORTCUTS, false)
     val desktopUserAgent get() = str(DESKTOP_USER_AGENT, "")
 
@@ -219,6 +221,7 @@ class Prefs(context: Context) {
         const val BACKGROUND_LOAD_INTENTS = "background_load_intents"
         const val KEEP_SCREEN_ON = "keep_screen_on"
         const val FORCE_YOUTUBE_APP = "force_youtube_app"
+        const val OPEN_LINKS_IN_APPS = "open_links_in_apps"
         const val ALT_SHORTCUTS = "alt_shortcuts"
         const val DESKTOP_USER_AGENT = "desktop_user_agent"
         const val NIGHT_MODE = "night_mode"

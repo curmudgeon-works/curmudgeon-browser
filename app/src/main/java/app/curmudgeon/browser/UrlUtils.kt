@@ -71,6 +71,22 @@ object UrlUtils {
         if (name.isEmpty() || !(url.startsWith("http://") || url.startsWith("https://"))) null else name to url
     }
 
+    /**
+     * The WebView's user agent without the parts that mark it as an app's embedded web view ("; wv" and
+     * "Version/4.0"). Google refuses sign-in ("This browser or app may not be secure") when it sees them.
+     */
+    fun browserUserAgent(webViewUa: String): String = webViewUa
+        .replace(Regex(";\\s*wv\\)"), ")")
+        .replace(Regex("\\s*Version/\\d+(\\.\\d+)*"), "")
+
+    /** True when both URLs are on the same site: equal hosts, or one host is a subdomain of the other. */
+    fun sameSite(a: String?, b: String?): Boolean {
+        val ha = host(a)
+        val hb = host(b)
+        if (ha.isEmpty() || hb.isEmpty()) return false
+        return ha == hb || ha.endsWith(".$hb") || hb.endsWith(".$ha")
+    }
+
     /** Desktop user agent derived from the WebView default: drops "Android …;" and "Mobile". */
     fun desktopUserAgent(defaultUa: String): String = defaultUa
         .replace(Regex("\\(Linux; Android [^;)]*;[^)]*\\)"), "(X11; Linux x86_64)")

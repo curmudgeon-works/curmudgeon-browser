@@ -231,6 +231,7 @@ class SettingsActivity : AppCompatActivity() {
                 "sites_javascript" -> editSiteList(BrowserDb.SiteList.JAVASCRIPT, "Sites with JavaScript")
                 "sites_images" -> editSiteList(BrowserDb.SiteList.IMAGES, "Sites with images")
                 "sites_cookies" -> editSiteList(BrowserDb.SiteList.COOKIES_KEEP, "Sites whose cookies are kept")
+                "sites_third_party_cookies" -> editSiteList(BrowserDb.SiteList.THIRD_PARTY_COOKIES, "Sites allowed third-party cookies")
                 "sites_geo" -> {
                     editSiteList(BrowserDb.SiteList.GEO_ALLOW, "Sites allowed location")
                 }
@@ -355,7 +356,7 @@ class SettingsActivity : AppCompatActivity() {
             Prefs.JAVASCRIPT, Prefs.IMAGE_POLICY, Prefs.TEXT_ZOOM, Prefs.FORCE_DARK_PAGES,
             Prefs.SEARCH_URL, Prefs.SEARCH_SUGGESTIONS,
             Prefs.TAB_CLOSE_METHOD, Prefs.TAB_ROWS, Prefs.REMEMBER_TABS, Prefs.BOTTOM_TABS_AND_URL,
-            Prefs.HOME_PAGE, Prefs.KEEP_SCREEN_ON,
+            Prefs.HOME_PAGE, Prefs.KEEP_SCREEN_ON, Prefs.GEOLOCATION, Prefs.OPEN_LINKS_IN_APPS,
             // Data options
             "clear_history_now", "clear_cache_now", "clear_cookies_now",
             Prefs.CLEAR_HISTORY_ON_EXIT, Prefs.CLEAR_COOKIES_ON_EXIT, Prefs.SAVE_HISTORY, Prefs.THIRD_PARTY_COOKIES,

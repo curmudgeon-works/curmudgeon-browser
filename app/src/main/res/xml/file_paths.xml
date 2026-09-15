@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SPDX-License-Identifier: GPL-3.0-only -->
+<paths>
+    <cache-path name="uploads" path="uploads/" />
+    <!-- files a page built itself, saved to Downloads on Android 8-9 -->
+    <external-path name="downloads" path="Download/" />
+</paths>
