@@ -12,11 +12,11 @@
     <color name="tab_bg">#FF5E5E5E</color>
     <color name="tab_bg_alt">#FF6E6E6E</color>
     <color name="tab_text">#FFF2F2F2</color>
-    <!-- active tab and address bar: faded Curmudgeon orange instead of glaring white (Naked used yellow) -->
-    <color name="tab_current_bg">#FFE3B08A</color>
+    <!-- active tab and secure address bar: Naked's lemon yellow (#FFFF99, measured from a screenshot), kept because Rahul prefers it -->
+    <color name="tab_current_bg">#FFFFFF99</color>
     <color name="tab_current_text">#FF1C1A17</color>
     <color name="url_bg">#FFECE8DF</color>          <!-- neutral cream: typing, home page, find bar -->
-    <color name="url_secure_bg">#FFE3B08A</color>   <!-- https page -->
+    <color name="url_secure_bg">#FFFFFF99</color>   <!-- https page -->
     <color name="url_insecure_bg">#FFBDB7AE</color> <!-- http page or allowed certificate problem -->
     <color name="url_text">#FF1C1A17</color>
     <color name="page_bg">#FF383838</color>
