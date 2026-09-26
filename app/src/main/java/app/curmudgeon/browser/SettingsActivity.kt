@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 package app.curmudgeon.browser
 
+import android.app.ActivityManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -238,6 +239,13 @@ class SettingsActivity : AppCompatActivity() {
                 "import_bookmarks" -> importLauncher.launch(arrayOf("text/*"))
                 "export_bookmarks" -> exportLauncher.launch("bookmarks.txt")
                 "delete_bookmarks" -> confirm("Delete all bookmarks?") { db.deleteAllBookmarks(); toast("Bookmarks deleted") }
+                "factory_reset" -> AlertDialog.Builder(requireContext()).setTitle("Factory reset")
+                    .setMessage("Erase all settings, tabs, bookmarks, history, cookies and site data? The browser closes; it starts fresh when you open it again. This cannot be undone.")
+                    .setPositiveButton("Erase everything") { _, _ ->
+                        // Android wipes every file, preference and database the app owns and stops it, as Settings > Clear storage would.
+                        requireContext().getSystemService(ActivityManager::class.java).clearApplicationUserData()
+                    }
+                    .setNegativeButton("Cancel", null).show()
                 "update_block_list" -> updateBlockList()
                 else -> return super.onPreferenceTreeClick(preference)
             }

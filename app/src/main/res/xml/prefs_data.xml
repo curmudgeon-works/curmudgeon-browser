@@ -34,4 +34,8 @@
         <Preference android:key="export_bookmarks" android:title="Export bookmarks" />
         <Preference android:key="delete_bookmarks" android:title="Delete all bookmarks" />
     </PreferenceCategory>
+    <PreferenceCategory android:key="category_reset" android:title="Reset">
+        <Preference android:key="factory_reset" android:title="Factory reset"
+            android:summary="Erase everything the browser has stored: settings, tabs, bookmarks, history, cookies and site data. The app closes and starts fresh next time." />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -1528,6 +1528,12 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
 
     private inner class PageClient(private val tab: Tab) : WebViewClient() {
         private var reflowPending = false
+        /**
+         * Host of the page request in flight, so certificate errors of embedded resources can be told apart. Set in
+         * [shouldInterceptRequest] (every main-frame request, before its connection, including redirects and history
+         * navigation); onPageStarted is too late, it only fires once a navigation commits, which a bad certificate prevents.
+         */
+        @Volatile private var pageHost = ""
 
         override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
             if (!request.isForMainFrame) return false
@@ -1564,7 +1570,8 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
         }
 
         override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
-            if (!blockAds || request.isForMainFrame) return null
+            if (request.isForMainFrame) { pageHost = UrlUtils.host(request.url.toString()); return null }
+            if (!blockAds) return null
             val host = request.url.host?.lowercase()?.removePrefix("www.") ?: return null
             return if (AdBlocker.isBlocked(host)) WebResourceResponse("text/plain", "utf-8", ByteArrayInputStream(ByteArray(0))) else null
         }
@@ -1579,6 +1586,9 @@ class BrowserActivity : AppCompatActivity(), GestureFrame.Listener, Sidebar.Host
         override fun onReceivedSslError(view: WebView, handler: SslErrorHandler, error: SslError) {
             val host = UrlUtils.host(error.url)
             if (host in sslAllowedHosts) { handler.proceed(); return }
+            // An embedded resource (ad, tracker, CDN) with a bad certificate is dropped quietly, like Chrome does;
+            // only the page the address bar shows gets the prompt or the block toast.
+            if (host != pageHost && prefs.securityExceptions != 1) { handler.cancel(); return }
             when (prefs.securityExceptions) {
                 1 -> handler.proceed()
                 0 -> { handler.cancel(); toast("Blocked $host: certificate problem") }
